@@ -1,26 +1,33 @@
-// Import `SummaryApi` object which contains API details (url, method, etc.) from the "common" module
-const { default: SummaryApi } = require("../common")
-
-// Asynchronous function to fetch products based on category
 const fetchCategoryWiseProduct = async (category) => {
-    // !! console.log("categoryData", category)
-    // Send a fetch request to the `categoryWiseProduct` API endpoint defined in the `SummaryApi` object
-    const response = await fetch(SummaryApi.categoryWiseProduct.url, {
-        method: SummaryApi.categoryWiseProduct.method, // Use the HTTP method defined in `SummaryApi` (e.g., "POST" or "GET")
-        headers: {
-            "content-type": "application/json" // Set the request header to indicate JSON content
-        },
-        body: JSON.stringify({
-            category: category // Include the category in the request body (converted to JSON format)
-        })
-    })
+    try {
+        const response = await fetch(SummaryApi.categoryWiseProduct.url, {
+            method: SummaryApi.categoryWiseProduct.method,
+            headers: {
+                "content-type": "application/json"
+            },
+            body: JSON.stringify({ category })
+        });
 
-    // Parse the JSON response from the server
-    const dataResponse = await response.json()
+        // Check if response status is OK (status 200-299)
+        if (!response.ok) {
+            console.error(`Error: ${response.status} ${response.statusText}`);
+            throw new Error(`Failed to fetch. Status: ${response.status}`);
+        }
 
-    // Return the parsed data
-    return dataResponse
-}
+        const textResponse = await response.text(); // Get response as text first
+        console.log("Raw Response:", textResponse); // Debugging raw response
 
-// Export the `fetchCategoryWiseProduct` function as the default export of this module
-export default fetchCategoryWiseProduct
+        // Check if response is not empty before parsing
+        if (!textResponse) {
+            throw new Error("Empty response from server.");
+        }
+
+        const dataResponse = JSON.parse(textResponse); // Parse valid JSON
+        return dataResponse;
+    } catch (error) {
+        console.error("Fetch error:", error.message);
+        return { error: error.message }; // Return error object to handle gracefully
+    }
+};
+
+export default fetchCategoryWiseProduct;
