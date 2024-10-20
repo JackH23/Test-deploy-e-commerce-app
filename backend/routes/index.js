@@ -25,6 +25,7 @@ const filterProductController = require('../controller/product/filterProduct')
 const paymentController = require('../controller/order/paymentController')
 const webhooks = require('../controller/order/webhooks')
 const orderController = require('../controller/order/orderController')
+const allOrderController = require('../controller/order/allOrder.controller')
 // const userSignInController = require('../controller/user/userSignIn')
 
 router.post("/signup", userSignUpController) // http://localhost:8080/api/signup
@@ -56,10 +57,12 @@ router.post("/delete-cart-product", authToken, deleteAddToCartProduct)
 // payment and order
 router.post("/checkout", authToken, paymentController)
 
+// cmd to path
 // try to check webhooks by \myProJectCollect\Downloads\stripe_1.21.8_windows_x86_64
 // past stripe login > y to allow access webhooks and login user
 // then past stripe listen --forward-to localhost:8080/api/webhook
 router.post("/webhook", webhooks)
 router.get("/order-list", authToken, orderController)
+router.get("/all-order",authToken,allOrderController)
 
 module.exports = router

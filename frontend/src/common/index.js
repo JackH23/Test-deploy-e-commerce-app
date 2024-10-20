@@ -85,6 +85,10 @@ const SummaryApi = {
         url: `${backendDomain}/api/order-list`,  // Full URL for updating a product in the cart
         method: 'get'  // HTTP method (POST) used for this request
     },
+    allOrder: {
+        url: `${backendDomain}/api/all-order`,  // Full URL for updating a product in the cart
+        method: 'get'  // HTTP method (POST) used for this request
+    },
 }
 
 export default SummaryApi
