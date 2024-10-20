@@ -24,3 +24,4 @@ const fetchCategoryWiseProduct = async (category) => {
 
 // Export the `fetchCategoryWiseProduct` function as the default export of this module
 export default fetchCategoryWiseProduct
+
