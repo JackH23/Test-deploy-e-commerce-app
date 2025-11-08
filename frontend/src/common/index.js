@@ -1,5 +1,5 @@
 // console.log("process.env.REACT_APP_BACKEND_URL ", process.env.REACT_APP_BACKEND_URL )
-const backendDomain = process.env.REACT_APP_BACKEND_URL//"http://localhost:8080"
+const backendDomain = process.env.REACT_APP_BACKEND_URL || "http://localhost:8080";
 
 
 const SummaryApi = {
@@ -89,6 +89,6 @@ const SummaryApi = {
         url: `${backendDomain}/api/all-order`,  // Full URL for updating a product in the cart
         method: 'get'  // HTTP method (POST) used for this request
     },
-}
+};
 
-export default SummaryApi
+export default SummaryApi;
